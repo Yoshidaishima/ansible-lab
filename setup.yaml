@@ -1,0 +1,27 @@
+- name: Basic setup for raspberry pis
+  hosts: all
+  tasks:
+    - name: Update apk cache
+      tags: update
+      apk:
+        update_cache: yes
+      become: true
+
+    - name: Install tmux
+      tags: install_tmux
+      apk:
+        name: tmux
+        state: present
+      become: true
+
+    - name: Download and install tmux config
+      tags: config_tmux_debug
+      ansible.builtin.debug:
+        msg: "url: {{ git_conf_tmux }} dest: {{ ansible_facts.env.HOME }}{{ dest_conf_tmux }}"
+
+    - name: Download and install tmux config
+      tags: config_tmux
+      ansible.builtin.get_url:
+        url: "{{ git_conf_tmux }}"
+        dest: "{{ ansible_facts.env.HOME }}{{ dest_conf_tmux }}"
+        mode: "0644"

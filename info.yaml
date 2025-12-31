@@ -1,0 +1,91 @@
+- name: Basic info for hosts
+  hosts: all
+  tasks:
+    - name: Create status file
+      tags: create
+      ansible.builtin.shell: touch ~/status-{{ ansible_facts["date_time"]["date"] }}
+
+    - name: Get OS info
+      tags: os
+      ansible.builtin.shell: |
+        date > ~/status-{{ ansible_facts["date_time"]["date"] }} && cat /etc/os-release > ~/status-{{ ansible_facts["date_time"]["date"] }}
+      ignore_errors: true
+
+    - name: Get cpu info
+      tags: cpu
+      ansible.builtin.shell: cat /proc/cpuinfo
+      register: cpu
+      ignore_errors: true
+    - name: Debug cpu
+      debug:
+        var: cpu
+
+    - name: Get uptime
+      tags: uptime
+      ansible.builtin.shell: uptime
+      register: uptime
+      ignore_errors: true
+    - name: Debug uptime
+      debug:
+        var: uptime
+
+    - name: Get overview
+      tags: overview
+      ansible.builtin.shell: uname -a
+      register: overview
+      ignore_errors: true
+    - name: Debug overview
+      debug:
+        var: overview
+
+    - name: Get RAM
+      tags: ram
+      ansible.builtin.shell: free -h
+      register: ram
+      ignore_errors: true
+    - name: Debug ram
+      debug:
+        var: ram
+
+    # Debugs should be broken out, they should be hidden by default verbosity
+
+    # - name: Print report
+    #   tags: print-all
+    #   debug:
+    #     var: "{{ item }}"
+    #   loop:
+    #     - "os.stdout_lines"
+    #     - "cpu.stdout_lines"
+    #     - "uptime.stdout_lines"
+    #     - "overview.stdout_lines"
+    #     - "ram.stdout_lines"
+
+- name: Basic info for raspberry pis
+  hosts: raspberrypis
+  tasks:
+    - name: Get Pi model and revision
+      tags: version
+      ansible.builtin.shell: cat /proc/device-tree/model
+      register: version
+      ignore_errors: true
+
+    - name: Get firmware info
+      tags: firmware
+      ansible.builtin.shell: vcgencmd version
+      register: firmware
+      ignore_errors: true
+
+    - name: Get temp
+      tags: temp
+      ansible.builtin.shell: vcgencmd measure_temp
+      register: temp
+      ignore_errors: true
+
+    - name: Print report
+      tags: print-rpis
+      debug:
+        var: "{{ item }}"
+      loop:
+        - version.stdout_lines
+        - firmware.stdout_lines
+        - temp.stdout_lines

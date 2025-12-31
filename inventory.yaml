@@ -1,0 +1,27 @@
+all:
+  vars:
+    ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS')  }}"
+    git_conf_tmux: 'https://raw.githubusercontent.com/Yoshidaishima/conf/refs/heads/main/.tmux.conf'
+    dest_conf_tmux: '/.tmux.conf'
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    servers:
+      vars:
+        ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS')  }}"
+      hosts:
+        vm00:
+          ansible_host: 192.168.0.11
+        rpi0:
+          ansible_host: 192.168.0.10
+        rpi3:
+          ansible_host: 192.168.0.13
+        rpi4:
+          ansible_host: 192.168.0.14
+    vms:
+      hosts:
+        vm00:
+    raspberrypis:
+      hosts:
+        rpi0:
+        rpi3:
+        rpi4:
