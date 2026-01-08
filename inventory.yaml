@@ -10,18 +10,30 @@ all:
         ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS')  }}"
       hosts:
         vm00:
+          # Debian
           ansible_host: 192.168.0.11
-        rpi0:
-          ansible_host: 192.168.0.10
+        # rpi0:
+        #   ansible_host: 192.168.0.10
         rpi3:
           ansible_host: 192.168.0.13
         rpi4:
           ansible_host: 192.168.0.14
+        imac00:
+          ansible_host: 192.168.0.20
+        imac01:
+          ansible_host: 192.168.0.21
+        imac02:
+          ansible_host: 192.168.0.22
     vms:
       hosts:
         vm00:
-    raspberrypis:
+    rpis:
       hosts:
-        rpi0:
+        # rpi0:
         rpi3:
         rpi4:
+    imacs:
+      hosts:
+        imac00:
+        imac01:
+        imac02:

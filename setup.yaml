@@ -1,5 +1,5 @@
 - name: Basic setup for raspberry pis
-  hosts: all
+  hosts: rpis
   tasks:
     - name: Update apk cache
       tags: update
