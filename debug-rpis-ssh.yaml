@@ -1,0 +1,10 @@
+- name: Debug locally
+  hosts: rpis
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Debug SSH
+      ansible.builtin.debug:
+        msg: "SSH USER: {{ansible_user}} PASS {{ansible_ssh_pass}}"
+      run_once: true
+

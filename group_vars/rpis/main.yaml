@@ -1,0 +1,2 @@
+ansible_user: yoshi
+ansible_ssh_pass: "{{ rpis_ssh_pass }}"
