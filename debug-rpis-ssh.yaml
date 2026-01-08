@@ -6,5 +6,5 @@
     - name: Debug SSH
       ansible.builtin.debug:
         msg: "SSH USER: {{ansible_user}} PASS {{ansible_ssh_pass}}"
-      run_once: true
+      # run_once: true
 

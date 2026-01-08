@@ -3,13 +3,13 @@
   tasks:
     - name: Update apk cache
       tags: update
-      apk:
+      apt:
         update_cache: yes
       become: true
 
     - name: Install tmux
       tags: install_tmux
-      apk:
+      apt:
         name: tmux
         state: present
       become: true
