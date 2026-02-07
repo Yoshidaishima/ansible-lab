@@ -1,3 +1,12 @@
-# Things to install on rpi
-- screen
+# Things to install and config on rpi
+- screen # required by ranger
 - ranger
+- dnsutils
+- tmux
+- vim
+- awesomevimrc
+- bashrc aliases and functions
+- inputrc setup
+- kitty
+- ranger
+- tldr
