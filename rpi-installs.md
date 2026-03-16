@@ -11,6 +11,7 @@
 - kitty
 - ranger
 - tldr
+- ufw
 
 
 ### Python
